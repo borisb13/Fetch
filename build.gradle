@@ -9,17 +9,18 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$gradle_tools_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-//        classpath "com.novoda:bintray-release:$novoda_bintray_version"
     }
 }
 
 allprojects {
+    rootProject.layout.buildDirectory = $/f:\android-build\${rootProject.name}\${project.name}/$
+
     repositories {
         google()
         jcenter()
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+tasks.register('clean', Delete) {
+    delete rootProject.layout.buildDirectory
 }

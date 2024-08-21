@@ -1,8 +1,6 @@
 apply plugin: 'com.android.library'
-
 apply plugin: 'kotlin-android'
-
-//apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'kotlin-kapt'
 
 buildscript {
     apply from: '../versions.gradle'
@@ -13,21 +11,14 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$gradle_tools_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-//        classpath "com.novoda:bintray-release:$novoda_bintray_version"
     }
 }
 
 android {
-    compileSdkVersion library_compile_version
-    buildToolsVersion library_build_tools_version
-
     defaultConfig {
         minSdkVersion library_min_version
         targetSdkVersion library_target_version
-        versionCode library_version_code
-        versionName library_version
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        compileSdk library_compile_version
 
     }
 
@@ -42,19 +33,24 @@ android {
 
         }
     }
-
-    lintOptions {
-        abortOnError false
+    buildFeatures {
+        dataBinding = true
+        buildConfig = true
     }
 
+
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
         androidTest.java.srcDirs += 'src/androidTest/kotlin'
+    }
+    namespace 'com.tonyodev.fetch2okhttp'
+    lint {
+        abortOnError false
     }
 }
 
@@ -65,10 +61,6 @@ dependencies {
     api "com.squareup.okhttp3:okhttp:$okhttp_version"
     api "com.squareup.okhttp3:okhttp-urlconnection:$okhttp_url_version"
     api project(':fetch2core')
-
-    testImplementation "junit:junit:$junit_version"
-    androidTestImplementation "com.android.support.test:runner:$test_runner_version"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_version"
 }
 
 //publish {
@@ -80,6 +72,6 @@ dependencies {
 //    website = 'https://github.com/tonyofrancis/fetch'
 //}
 
-tasks.withType(Javadoc).all {
+tasks.withType(Javadoc).configureEach {
     enabled = false
 }

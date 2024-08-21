@@ -4,12 +4,14 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SwitchCompat;
+import androidx.annotation.NonNull;
+import com.google.android.material.snackbar.Snackbar;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.SwitchCompat;
 import android.view.View;
 
 import com.tonyodev.fetch2.AbstractFetchListener;
@@ -23,10 +25,6 @@ import com.tonyodev.fetch2.NetworkType;
 import com.tonyodev.fetch2.Request;
 import com.tonyodev.fetch2.FetchConfiguration;
 import com.tonyodev.fetch2okhttp.OkHttpDownloader;
-
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -100,53 +98,53 @@ public class DownloadListActivity extends AppCompatActivity implements ActionLis
 
     private final FetchListener fetchListener = new AbstractFetchListener() {
         @Override
-        public void onAdded(@NotNull Download download) {
+        public void onAdded(@NonNull Download download) {
             fileAdapter.addDownload(download);
         }
 
         @Override
-        public void onQueued(@NotNull Download download, boolean waitingOnNetwork) {
+        public void onQueued(@NonNull Download download, boolean waitingOnNetwork) {
             fileAdapter.update(download, UNKNOWN_REMAINING_TIME, UNKNOWN_DOWNLOADED_BYTES_PER_SECOND);
         }
 
         @Override
-        public void onCompleted(@NotNull Download download) {
+        public void onCompleted(@NonNull Download download) {
             fileAdapter.update(download, UNKNOWN_REMAINING_TIME, UNKNOWN_DOWNLOADED_BYTES_PER_SECOND);
         }
 
         @Override
-        public void onError(@NotNull Download download, @NotNull Error error, @Nullable Throwable throwable) {
+        public void onError(@NonNull Download download, @NonNull Error error, @Nullable Throwable throwable) {
             super.onError(download, error, throwable);
             fileAdapter.update(download, UNKNOWN_REMAINING_TIME, UNKNOWN_DOWNLOADED_BYTES_PER_SECOND);
         }
 
         @Override
-        public void onProgress(@NotNull Download download, long etaInMilliseconds, long downloadedBytesPerSecond) {
+        public void onProgress(@NonNull Download download, long etaInMilliseconds, long downloadedBytesPerSecond) {
             fileAdapter.update(download, etaInMilliseconds, downloadedBytesPerSecond);
         }
 
         @Override
-        public void onPaused(@NotNull Download download) {
+        public void onPaused(@NonNull Download download) {
             fileAdapter.update(download, UNKNOWN_REMAINING_TIME, UNKNOWN_DOWNLOADED_BYTES_PER_SECOND);
         }
 
         @Override
-        public void onResumed(@NotNull Download download) {
+        public void onResumed(@NonNull Download download) {
             fileAdapter.update(download, UNKNOWN_REMAINING_TIME, UNKNOWN_DOWNLOADED_BYTES_PER_SECOND);
         }
 
         @Override
-        public void onCancelled(@NotNull Download download) {
+        public void onCancelled(@NonNull Download download) {
             fileAdapter.update(download, UNKNOWN_REMAINING_TIME, UNKNOWN_DOWNLOADED_BYTES_PER_SECOND);
         }
 
         @Override
-        public void onRemoved(@NotNull Download download) {
+        public void onRemoved(@NonNull Download download) {
             fileAdapter.update(download, UNKNOWN_REMAINING_TIME, UNKNOWN_DOWNLOADED_BYTES_PER_SECOND);
         }
 
         @Override
-        public void onDeleted(@NotNull Download download) {
+        public void onDeleted(@NonNull Download download) {
             fileAdapter.update(download, UNKNOWN_REMAINING_TIME, UNKNOWN_DOWNLOADED_BYTES_PER_SECOND);
         }
     };

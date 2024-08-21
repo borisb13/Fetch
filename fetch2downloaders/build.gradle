@@ -26,9 +26,6 @@ android {
         targetSdkVersion library_target_version
         versionCode library_version_code
         versionName library_version
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
@@ -63,10 +60,6 @@ dependencies {
 
     api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     api project(':fetch2core')
-
-    testImplementation "junit:junit:$junit_version"
-    androidTestImplementation "com.android.support.test:runner:$test_runner_version"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_version"
 }
 
 //publish {
